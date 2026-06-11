@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NUDGE — an instrument loader for the Atari ST</title>
+  <meta name="description" content="NUDGE — an instrument loader for the Atari ST. Position statement. Novo Line, Berlin, 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+    :root {
+      --bg: #080808;
+      --bg2: #0d0d0d;
+      --grid: rgba(0,255,140,0.04);
+      --green: #00ff8c;
+      --green-dim: #00c96e;
+      --green-ghost: rgba(0,255,140,0.08);
+      --amber: #ffb800;
+      --red: #ff2d55;
+      --white: #e8ffe8;
+      --dim: #3a5a3a;
+      --phosphor: 0 0 8px rgba(0,255,140,0.6), 0 0 20px rgba(0,255,140,0.2);
+      --phosphor-amber: 0 0 8px rgba(255,184,0,0.7), 0 0 20px rgba(255,184,0,0.2);
+      --font-display: 'VT323', monospace;
+      --font-mono: 'Share Tech Mono', monospace;
+      --font-head: 'Orbitron', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--green);
+      font-family: var(--font-mono);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: crosshair;
+      min-height: 100vh;
+    }
+
+    /* CRT scanlines overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 2px,
+        rgba(0,0,0,0.35) 3px
+      );
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 28px 120px;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.28em;
+      color: var(--amber);
+      text-shadow: var(--phosphor-amber);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: clamp(34px, 7vw, 58px);
+      letter-spacing: 0.04em;
+      color: var(--white);
+      text-shadow: var(--phosphor);
+      line-height: 1.05;
+      margin-bottom: 10px;
+    }
+
+    .subhead {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green-dim);
+      margin-bottom: 48px;
+    }
+
+    .rule {
+      height: 1px;
+      background: linear-gradient(to right, var(--green), transparent);
+      margin: 0 0 48px;
+      opacity: 0.5;
+    }
+
+    .statement p {
+      font-size: clamp(16px, 2.4vw, 20px);
+      line-height: 1.75;
+      color: var(--white);
+      margin-bottom: 30px;
+    }
+
+    .statement p:last-child {
+      color: var(--green);
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3.2vw, 28px);
+      letter-spacing: 0.05em;
+      margin-top: 12px;
+      margin-bottom: 0;
+    }
+
+    .statement em {
+      color: var(--amber);
+      font-style: normal;
+      text-shadow: var(--phosphor-amber);
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 64px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--green);
+      text-decoration: none;
+      border: 1px solid var(--green-dim);
+      padding: 10px 18px;
+      transition: all 0.15s ease;
+    }
+    .back:hover {
+      background: var(--green-ghost);
+      box-shadow: var(--phosphor);
+    }
+
+    .followline {
+      margin-top: 56px;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      color: var(--green-dim);
+      line-height: 2.2;
+    }
+    .followline .back {
+      margin-top: 12px;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(0,255,140,0.12);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      color: var(--dim);
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="eyebrow">NOVO LINE SOFTWARE — BERLIN — PRESS / POSITION</div>
+    <h1>NUDGE</h1>
+    <div class="subhead">An instrument loader for the Atari ST</div>
+    <div class="rule"></div>
+
+    <div class="statement">
+      <p>The practice came first. Fifteen years of running Tunesmith live — running into its ceiling, building elaborate workarounds, running four STs side by side just to do what one should have been able to do. The instrument was always in there. There was no way to finish it.</p>
+
+      <p>The tools caught up. Not gradually — at a specific moment, reverse engineering and AI collaboration became capable of the sustained, precise work that 144KB of undocumented 68000 machine code requires. That's when NUDGE became possible.</p>
+
+      <p>The result loads into the ST at boot, transforms it, and disappears when the session ends. <em>Not software.</em> An instrument loader — the first product to use that name, because there was nothing worth naming until now.</p>
+
+      <p>Novo Line. Berlin. 2026.</p>
+    </div>
+
+    <div class="followline">
+      Not yet for sale. The build is happening in public.<br>
+      <a class="back" href="https://x.com/jamthehut">FOLLOW THE BUILD →</a>
+    </div>
+
+    <footer>NUDGE v1.0 / MOTOROLA 68000 / ATARI ST / BERLIN</footer>
+  </main>
+</body>
+</html>
